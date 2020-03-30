@@ -1,6 +1,4 @@
 # Flutter-Weather-app
-https://github.com/yous3f7/Flutter-Weather-app/blob/master/screenshot/1.jpg?raw=true
-https://github.com/yous3f7/Flutter-Weather-app/blob/master/screenshot/2.jpg?raw=true
 A simple weather app that shows the temperature, wind speed, humidity in Dubai city
 
 1. Create a widget that shows the date of today and the two days after it.
