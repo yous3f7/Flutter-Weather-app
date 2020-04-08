@@ -2,7 +2,6 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather/core/constants.dart';
-import 'package:weather/core/global/CoreStyle.dart';
 import 'package:weather/features/weather/preseintation/bloc/weather_bloc.dart';
 import 'package:weather/features/weather/preseintation/bloc/weather_event.dart';
 import 'package:weather/features/weather/preseintation/widget/build_card_widget.dart';
@@ -10,7 +9,6 @@ import 'package:weather/features/weather/preseintation/widget/build_card_widget.
 import 'weather_page.dart';
 
 class HomePage extends StatefulWidget {
-  final DateTime dateNow  = DateTime.now();
   @override
   _HomePageState createState() => _HomePageState();
 }
