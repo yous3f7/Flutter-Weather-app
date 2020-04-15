@@ -36,7 +36,7 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
       if (response.hasErrorOnly){
         yield FailureState(error: response.error,callback: (){this.add(event);});
       }
-      if (response.hasDataOnly){
+      if (response.hasDataOnly || response.hasDataAndError){
         yield SuccessState(data: response.data);
       }
     }

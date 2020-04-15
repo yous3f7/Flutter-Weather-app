@@ -12,10 +12,6 @@ abstract class AppDB {
     await Hive.close();
   }
 
-  static LazyBox getBox(String boxName) {
-    final lazyBox = Hive.box(boxName) as LazyBox;
-    return lazyBox;
-  }
   static Future<void> clear() async {
     await WeatherDao().clear();
   }

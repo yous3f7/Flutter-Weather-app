@@ -21,11 +21,11 @@ class WeatherRepository extends Repository {
       query: query,
       cancelToken: cancelToken,
     );
-//    return executeWithCacheRemoteFirst<
-//        WeatherModel, WeatherEntity, WeatherDao>(
-//      remoteResult: remoteResult,
-//      dao: WeatherDao(),
-//    );
-    return execute<WeatherModel,WeatherEntity>(remoteResult: remoteResult);
+    return executeWithCacheRemoteFirst<
+        WeatherModel, WeatherEntity, WeatherDao>(
+      remoteResult: remoteResult,
+      dao: WeatherDao(),
+      duration: const Duration(days: 1)
+    );
   }
 }

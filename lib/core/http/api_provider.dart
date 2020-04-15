@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:dio_http_cache/dio_http_cache.dart';
 import 'package:flutter/foundation.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
@@ -47,13 +46,6 @@ class ApiProvider {
     assert(method != null);
     assert(url != null);
     _dio = Dio(option);
-    _dio.interceptors.add(
-        DioCacheManager(
-            CacheConfig(
-              baseUrl: API_BASE,
-              defaultMaxAge: const Duration(days: 1),
-            ),
-        ).interceptor);
     try {
       print('[$method: $url]');
 
@@ -61,12 +53,7 @@ class ApiProvider {
       Response response = await _dio.get(
             url,
             queryParameters: queryParameters,
-            options: buildCacheOptions(
-                const Duration(days: 1),
-                options: Options(headers: headers),
-                forceRefresh: true,
-                maxStale:const Duration(days: 1),
-            ),
+            options: Options(headers: headers),
             cancelToken: cancelToken,
           );
 

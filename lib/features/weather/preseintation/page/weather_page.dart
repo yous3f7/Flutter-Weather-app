@@ -77,23 +77,7 @@ class _WeatherPageState extends State<WeatherPage> {
                           ),
                           Center(
                             child: Image.network("http://openweathermap.org/img/wn/${state.data.list[0].weather[0].icon}@2x.png",
-                              scale: 0.25,
-                            ),
-                          ),
-                          Expanded(
-                            child: Container(
-                              height: CoreStyle.setWidthPercentage(20, context),
-                              width: CoreStyle.setWidthPercentage(20, context),
-                              decoration: BoxDecoration(
-                                boxShadow: <BoxShadow>[
-                                  BoxShadow(
-                                    color: Colors.black12,
-                                    blurRadius: 15.0,
-                                    offset: const Offset(3.0, 3.0),
-                                  )
-                                ],
-                                borderRadius: const BorderRadius.all(Radius.circular(180.0)),
-                              ),
+                              scale: 0.80,
                             ),
                           ),
                           Row(

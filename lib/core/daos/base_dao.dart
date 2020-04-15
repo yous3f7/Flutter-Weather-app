@@ -15,7 +15,7 @@ abstract class BaseDao<Model extends BaseModel> {
       this.identifier,
       );
 
-  Future<Model> get(String id) => _getExecutor(id, fromJsonConverter);
+  Future<Model> get(int id) => _getExecutor(id, fromJsonConverter);
 
   Future<List<Model>> getAll() => _getAllExecutor(fromJsonConverter);
 
@@ -25,23 +25,24 @@ abstract class BaseDao<Model extends BaseModel> {
   Future<void> addAll(List<Model> items) =>
       _addAllExecutor(items, identifier, toJsonConverter);
 
+
   Future<void> clear() async {
-    final box = await Hive.openBox(boxName,);
+    final box = await Hive.openLazyBox(boxName,);
     await box.clear();
   }
 
   Future<Model> _getExecutor(
-      String id,
+      int id,
       Model Function(Map<String, dynamic> json) converter,
       ) async {
-    final box = await Hive.openBox(boxName,);
-    return box.get(id, defaultValue: null);
+    final box = await Hive.openLazyBox(boxName, );
+    return converter(jsonDecode(await box.getAt(id)));
   }
 
   Future<List<Model>> _getAllExecutor(
       Model Function(Map<String, dynamic> json) converter,
       ) async {
-    final box = await Hive.openBox(boxName,);
+    final box = await Hive.openLazyBox(boxName, );
     final posts = List<Model>();
     for (int i = 0; i < box.length; i++) {
       final jsonMap = jsonDecode(await box.getAt(i));
@@ -55,7 +56,8 @@ abstract class BaseDao<Model extends BaseModel> {
       String Function(Model model) identifier,
       Map<String, dynamic> Function(Model model) converter,
       ) async {
-    final box = await Hive.openBox(boxName,);
+    final box = await Hive.openLazyBox(boxName,);
+    print(identifier(item));
     await box.put(identifier(item), jsonEncode(converter(item)));
   }
 
@@ -64,7 +66,7 @@ abstract class BaseDao<Model extends BaseModel> {
       String Function(Model model) identifier,
       Map<String, dynamic> Function(Model model) converter,
       ) async {
-    final box = await Hive.openBox(boxName,);
+    final box = await Hive.openLazyBox(boxName, );
     for (Model item in items) {
       await box.put(identifier(item), jsonEncode(converter(item)));
     }

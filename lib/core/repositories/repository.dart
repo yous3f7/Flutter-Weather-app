@@ -66,12 +66,14 @@ abstract class Repository {
   Dao extends BaseDao<Model>>({
     @required Either<BaseError, Model> remoteResult,
     @required Dao dao,
+    Duration duration
   }) async {
     if (remoteResult.isRight()) {
       final models = (remoteResult as Right<BaseError, Model>).value;
       await dao.clear();
       await dao.add(models);
-      final entities = models.toEntity();//map((m) => m.toEntity()).toList();
+      Future<void>.delayed(duration??const Duration(days: 7),()=> dao.clear());
+      final entities = models.toEntity();
       return Result(data: entities);
     } else {
       final error = (remoteResult as Left<BaseError, Model>).value;
@@ -79,8 +81,8 @@ abstract class Repository {
         await dao.clear();
         return Result(error: error);
       }
-      final models = await dao.get("1");
-        final entities = models.toEntity();//map((m) => m.toEntity());
+        final models = await dao.get(0);
+        final entities = models.toEntity();//
         return Result(data: entities, error: error);
     }
   }
